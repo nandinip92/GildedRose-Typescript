@@ -145,9 +145,9 @@ export class GildedRose {
   }
 }
 
-let gildedRose = new GildedRose([new Item("foo", 0, 0)]); // [ Item { name: 'foo', sellIn: -1, quality: 0 } ]
+// let gildedRose = new GildedRose([new Item("foo", 0, 0)]); // [ Item { name: 'foo', sellIn: -1, quality: 0 } ]
 
-gildedRose = new GildedRose([new Item("Aged Brie", -3, 49)]);
-const items = gildedRose.updateQuality_original();
+// gildedRose = new GildedRose([new Item("Aged Brie", -3, 49)]);
+// const items = gildedRose.updateQuality_original();
 
-console.log(items);
+// console.log(items);
