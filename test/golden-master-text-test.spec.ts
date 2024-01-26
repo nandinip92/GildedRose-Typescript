@@ -143,7 +143,29 @@ describe("Gilded Rose", function () {
       ];
       const gildedRose = new GildedRose(inputItems);
       const items = gildedRose.updateQuality();
-      expect(items).to.deep.equal(inputItems);
+      const output = [
+        new Item("Sulfuras, Hand of Ragnaros", 10, 80),
+        new Item("Sulfuras, Hand of Ragnaros", 3, 80),
+        new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+      ]
+      expect(items).to.deep.equal(output);
+    });
+    const handOfRagnarosName = "Sulfuras, Hand of Ragnaros";
+
+    it("does not change", function () {
+      const gildedRose = new GildedRose([new Item(handOfRagnarosName, 12, 5)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].name).to.equal(handOfRagnarosName);
+      expect(items[0].quality).to.equal(5);
+      expect(items[0].sellIn).to.equal(12);
+    });
+
+    it("does not change, even with low values", function () {
+      const gildedRose = new GildedRose([new Item(handOfRagnarosName, -1, 5)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].name).to.equal(handOfRagnarosName);
+      expect(items[0].quality).to.equal(5);
+      expect(items[0].sellIn).to.equal(-1);
     });
   });
 
@@ -152,15 +174,15 @@ describe("Gilded Rose", function () {
       const inputItems = [
         new Item("Conjured Mana Cake", 10, 36),
         new Item("Sulfuras, Hand of Ragnaros", 3, 12),
-        new Item("Sulfuras, Hand of Ragnaros", 16, 1)
+        new Item("Sulfuras, Hand of Ragnaros", 16, 1),
       ];
       const gildedRose = new GildedRose(inputItems);
       const items = gildedRose.updateQuality();
       const outputItems = [
         new Item("Conjured Mana Cake", 9, 34),
         new Item("Sulfuras, Hand of Ragnaros", 2, 10),
-        new Item("Sulfuras, Hand of Ragnaros", 15, 0)
-      ]
+        new Item("Sulfuras, Hand of Ragnaros", 15, 0),
+      ];
       expect(items).to.deep.equal(inputItems);
     });
 
@@ -168,15 +190,15 @@ describe("Gilded Rose", function () {
       const inputItems = [
         new Item("Conjured Mana Cake", 0, 25),
         new Item("Sulfuras, Hand of Ragnaros", -3, 17),
-        new Item("Sulfuras, Hand of Ragnaros", -8, 3)
+        new Item("Sulfuras, Hand of Ragnaros", -8, 3),
       ];
       const gildedRose = new GildedRose(inputItems);
       const items = gildedRose.updateQuality();
       const outputItems = [
         new Item("Conjured Mana Cake", -1, 21),
         new Item("Sulfuras, Hand of Ragnaros", -4, 13),
-        new Item("Sulfuras, Hand of Ragnaros", -9, 0)
-      ]
+        new Item("Sulfuras, Hand of Ragnaros", -9, 0),
+      ];
       expect(items).to.deep.equal(inputItems);
     });
   });
