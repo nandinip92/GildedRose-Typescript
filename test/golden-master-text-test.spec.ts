@@ -147,6 +147,40 @@ describe("Gilded Rose", function () {
     });
   });
 
+  describe("Check for Conjured Mana Cake", function () {
+    it("should descrease the quality by 2 when sellIn > 0", function () {
+      const inputItems = [
+        new Item("Conjured Mana Cake", 10, 36),
+        new Item("Sulfuras, Hand of Ragnaros", 3, 12),
+        new Item("Sulfuras, Hand of Ragnaros", 16, 1)
+      ];
+      const gildedRose = new GildedRose(inputItems);
+      const items = gildedRose.updateQuality();
+      const outputItems = [
+        new Item("Conjured Mana Cake", 9, 34),
+        new Item("Sulfuras, Hand of Ragnaros", 2, 10),
+        new Item("Sulfuras, Hand of Ragnaros", 15, 0)
+      ]
+      expect(items).to.deep.equal(inputItems);
+    });
+
+    it("should descrease the quality by 4 when sellIn <= 0", function () {
+      const inputItems = [
+        new Item("Conjured Mana Cake", 0, 25),
+        new Item("Sulfuras, Hand of Ragnaros", -3, 17),
+        new Item("Sulfuras, Hand of Ragnaros", -8, 3)
+      ];
+      const gildedRose = new GildedRose(inputItems);
+      const items = gildedRose.updateQuality();
+      const outputItems = [
+        new Item("Conjured Mana Cake", -1, 21),
+        new Item("Sulfuras, Hand of Ragnaros", -4, 13),
+        new Item("Sulfuras, Hand of Ragnaros", -9, 0)
+      ]
+      expect(items).to.deep.equal(inputItems);
+    });
+  });
+
   describe("Check for All the other items", function () {
     it("Quality should be decreased by 1 and sellIn should be decreased by 1 when sellIn > 0", function () {
       const inputItems = [
