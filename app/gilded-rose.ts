@@ -65,7 +65,8 @@ export class GildedRose {
         updateBackstageQuality(item);
       } else if (item.name === "Conjured Mana Cake") {
         updateConjuredQuality(item);
-      } else {
+      } else if (item.name !== "Sulfuras, Hand of Ragnaros") 
+      {
         updateQualityForOthers(item);
       }
       if (item.name !== "Sulfuras, Hand of Ragnaros") {
@@ -155,10 +156,3 @@ export class GildedRose {
     return this.items;
   }
 }
-
-// let gildedRose = new GildedRose([new Item("foo", 0, 0)]); // [ Item { name: 'foo', sellIn: -1, quality: 0 } ]
-
-// gildedRose = new GildedRose([new Item("Aged Brie", -3, 49)]);
-// const items = gildedRose.updateQuality_original();
-
-// console.log(items);
