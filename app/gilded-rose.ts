@@ -46,7 +46,10 @@ export class GildedRose {
         item.quality = 0;
       }
     };
-    const updateQualityForOthers = (items) => {};
+    const updateQualityForOthers = (items) => {
+      if (items.quality > 0) items.quality -= 1;
+      if (items.quality > 0 && items.sellIn <= 0) items.quality -= 1;
+    };
     for (let i = 0; i < this.items.length; i++) {
       if (this.items[i].name === "Aged Brie") {
         updateAgedBrieQuality(this.items[i]);
