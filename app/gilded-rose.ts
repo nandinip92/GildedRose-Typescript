@@ -75,84 +75,87 @@ export class GildedRose {
     });
     return this.items;
   }
-  updateQuality_original() {
-    for (let i = 0; i < this.items.length; i++) {
-      // select the items not belong to 'Aged Brie' or 'Backstage passes to a concert' as these two increase quality
-      if (
-        this.items[i].name != "Aged Brie" &&
-        this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-      ) {
-        // check quality great than 0, min quality is 0
-        if (this.items[i].quality > 0) {
-          // check item is not Sulfuras, which will not change quality'
-          if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-            // descrease quality with increase of sellIn
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        }
-        // it's 'Aged Brie' or 'Backstage passes'
-      } else {
-        // The Quality of an item can never increase to be more than 50
-        if (this.items[i].quality < 50) {
-          // increase quality with growing sellIn
-          this.items[i].quality = this.items[i].quality + 1;
-          if (
-            this.items[i].name == "Backstage passes to a TAFKAL80ETC concert"
-          ) {
-            // Quality increases by 2 when there are 10 days or less
-            if (this.items[i].sellIn < 11) {
-              // check the quality is always not greater than 50
-              if (this.items[i].quality < 50) {
-                // why not increase by 2?
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            } // Quality increase by 3 when sellIn are 5 days o less
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                // why not increase by 3?
-                this.items[i].quality = this.items[i].quality + 1;
-              }
-            }
-          }
-        }
-      }
-      // check the items are not sulfuras
-      if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
-      // check sellIn smaller than 0
-      if (this.items[i].sellIn < 0) {
-        // check item is not 'Aged Brie'
-        if (this.items[i].name != "Aged Brie") {
-          // check item is not 'Backstage passes'
-          if (
-            this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-          ) {
-            // check quality greater than 0
-            if (this.items[i].quality > 0) {
-              // check item is not sulfuras
-              if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-                // quality decrease by 1
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }
-          } else {
-            // item is 'Backstage passes'
-            // Quality of 'Backstage passes' drop to 0
-            this.items[i].quality =
-              this.items[i].quality - this.items[i].quality;
-          }
-        } else {
-          // item is 'Aged Brie'
-          //check quality always smaller than 50
-          if (this.items[i].quality < 50) {
-            // 'Aged Brie' quality increased by 1
-            this.items[i].quality = this.items[i].quality + 1;
-          }
-        }
-      }
-    }
-
-    return this.items;
-  }
 }
+
+
+// Following is the original function
+//  updateQuality_original() {
+//   for (let i = 0; i < this.items.length; i++) {
+//     // select the items not belong to 'Aged Brie' or 'Backstage passes to a concert' as these two increase quality
+//     if (
+//       this.items[i].name != "Aged Brie" &&
+//       this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
+//     ) {
+//       // check quality great than 0, min quality is 0
+//       if (this.items[i].quality > 0) {
+//         // check item is not Sulfuras, which will not change quality'
+//         if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+//           // descrease quality with increase of sellIn
+//           this.items[i].quality = this.items[i].quality - 1;
+//         }
+//       }
+//       // it's 'Aged Brie' or 'Backstage passes'
+//     } else {
+//       // The Quality of an item can never increase to be more than 50
+//       if (this.items[i].quality < 50) {
+//         // increase quality with growing sellIn
+//         this.items[i].quality = this.items[i].quality + 1;
+//         if (
+//           this.items[i].name == "Backstage passes to a TAFKAL80ETC concert"
+//         ) {
+//           // Quality increases by 2 when there are 10 days or less
+//           if (this.items[i].sellIn < 11) {
+//             // check the quality is always not greater than 50
+//             if (this.items[i].quality < 50) {
+//               // why not increase by 2?
+//               this.items[i].quality = this.items[i].quality + 1;
+//             }
+//           } // Quality increase by 3 when sellIn are 5 days o less
+//           if (this.items[i].sellIn < 6) {
+//             if (this.items[i].quality < 50) {
+//               // why not increase by 3?
+//               this.items[i].quality = this.items[i].quality + 1;
+//             }
+//           }
+//         }
+//       }
+//     }
+//     // check the items are not sulfuras
+//     if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+//       this.items[i].sellIn = this.items[i].sellIn - 1;
+//     }
+//     // check sellIn smaller than 0
+//     if (this.items[i].sellIn < 0) {
+//       // check item is not 'Aged Brie'
+//       if (this.items[i].name != "Aged Brie") {
+//         // check item is not 'Backstage passes'
+//         if (
+//           this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
+//         ) {
+//           // check quality greater than 0
+//           if (this.items[i].quality > 0) {
+//             // check item is not sulfuras
+//             if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
+//               // quality decrease by 1
+//               this.items[i].quality = this.items[i].quality - 1;
+//             }
+//           }
+//         } else {
+//           // item is 'Backstage passes'
+//           // Quality of 'Backstage passes' drop to 0
+//           this.items[i].quality =
+//             this.items[i].quality - this.items[i].quality;
+//         }
+//       } else {
+//         // item is 'Aged Brie'
+//         //check quality always smaller than 50
+//         if (this.items[i].quality < 50) {
+//           // 'Aged Brie' quality increased by 1
+//           this.items[i].quality = this.items[i].quality + 1;
+//         }
+//       }
+//     }
+//   }
+
+//   return this.items;
+// }
